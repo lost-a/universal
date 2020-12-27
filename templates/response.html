@@ -1,0 +1,25 @@
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Universal Adventures</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="icon" href={% static './img/Universal Adventures Logo.png' %} sizes="16x16" type="image/png">
+   
+</head>
+
+<body>
+	<h1 align="center">PG Response</h1>
+	<h2 style="color:Green">{{postData.txStatus}}</h2>
+</body>
+
+</html>
+{% endblock %}
