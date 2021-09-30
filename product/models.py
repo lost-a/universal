@@ -9,6 +9,13 @@ from taggit.managers import TaggableManager
 
 class Destination(models.Model):
     name=models.CharField(max_length=50)
+    type = models.CharField(max_length=200, choices=Type_CHOICES, default='',null=True,blank=True)
+    statename=models.CharField(max_length=200,default='',null=True, blank=True)
+    order=models.IntegerField(default=0,null=True, blank=True)
+    covid_status=models.CharField(max_length=1000,default="",null=True,blank=True)
+    how_to_reach=models.CharField(max_length=1000,default="",null=True,blank=True)
+    weather=models.CharField(max_length=1000,default="",null=True,blank=True)
+    weather_javascript=models.CharField(max_length=1000,default="",null=True,blank=True)
     image= models.ImageField(upload_to='uploads/products/',null=True,blank=True)
     def __str__(self):
         return self.name
