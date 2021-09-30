@@ -97,6 +97,38 @@ def Tagged(request,tag_slug):
     }
     return render(request,'more.html',context)
 
+@api_view(['GET',])
+def Tour(request,slug):
+    state = request.GET.get('state', '')
+    city = request.GET.get('city', '')
+    
+
+    if slug == 'all':
+        if len(city)>0:
+            paginator = Product.objects.filter( category='Tour',city=city)
+            place=city
+        elif len(state)>0:
+            paginator = Product.objects.filter(category='Tour',state=state)
+            
+        else:
+            paginator = Product.objects.filter(category='Tour')
+      
+    else:
+        a=slug.split('-')
+        if len(a)>1:
+            slug= a[0]+' '+a[1]
+        if len(a)>2:
+            slug= a[0]+' '+a[1]+' '+a[2]
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Tour',city=city,tag_category=slug)
+        elif len(state)>0:
+            paginator = Product.objects.filter(category='Tour',state=state,tag_category=slug)
+        else:
+            paginator = Product.objects.filter(category='Tour',tag_category=slug)
+        
+        
+    context={'pro':paginator.values()}
+    return Response(context['pro'])
 
 def autocompleteModel(request):
 
