@@ -67,7 +67,67 @@ def more(request):
     }
     return render(request,'more.html',context)
 
+@api_view(['GET',])
+def Adventure(request,slug):
+    state = request.GET.get('state', '')
+    city = request.GET.get('city', '')
+    print(city)
+    if slug == 'all':
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Adventure',city=city)
 
+        elif len(state)>0:
+            paginator = Product.objects.filter(category='Adventure',state=state)
+        else:
+            paginator = Product.objects.filter(category='Adventure')
+        
+    elif slug =='High-Fly':
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Adventure',tag_category='High Fly',city=city)
+
+        elif len(state)>0:
+            paginator = Product.objects.filter(category='Adventure',tag_category='High Fly',state=state)
+        else:
+            paginator = Product.objects.filter(category='Adventure',tag_category='High Fly')
+        
+    elif slug =='High-Thrill':
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Adventure',tag_category='High Thrill',city=city)
+
+        elif len(state)>0:
+            paginator = Product.objects.filter(category='Adventure',tag_category='High Thrill',state=state)
+        else:
+            paginator = Product.objects.filter(category='Adventure',tag_category='High Thrill')
+        
+    elif slug =='Land-Adventure':
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Adventure',tag_category='Land Adventure',city=city)
+
+        elif len(state)>0:
+            paginator =Product.objects.filter(category='Adventure',tag_category='Land Adventure',state=state)
+        else:
+            paginator =Product.objects.filter(category='Adventure',tag_category='Land Adventure')
+        
+    elif slug =='Aqua-Experience':
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Adventure',tag_category='Aqua Experience',city=city)
+
+        elif len(state)>0:
+            paginator =Product.objects.filter(category='Adventure',tag_category='Aqua Experience',state=state)
+        else:
+            paginator =Product.objects.filter(category='Adventure',tag_category='Aqua Experience')
+    else:
+        a=slug.split('-')
+        if len(a)>1:
+            slug= a[0]+' '+a[1]
+        if len(city)>0:
+            paginator = Product.objects.filter(category='Adventure',city=city,adventuretype=slug)
+        elif len(state)>0:
+            paginator =Product.objects.filter(category='Adventure',state=state,adventuretype=slug)
+        else:
+            paginator = Product.objects.filter(category='Adventure',adventuretype=slug)
+    context={'pro':paginator.values()}
+    return Response(context['pro'])
 
 
 def search(request):
